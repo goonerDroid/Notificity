@@ -1,6 +1,6 @@
-package com.darshan.notificity
+package com.darshan.notificity.ui
 
-import android.app.Application
+import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.NameNotFoundException
@@ -8,19 +8,26 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.graphics.drawable.toBitmap
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
+import com.darshan.notificity.data.model.AppInfo
+import com.darshan.notificity.data.model.NotificationEntity
+import com.darshan.notificity.data.repository.NotificationRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
+import javax.inject.Inject
 
-class MainViewModel(private val application: Application, repository: NotificationRepository) :
-    AndroidViewModel(application) {
+@HiltViewModel
+class MainViewModel @Inject constructor(@ApplicationContext private val application: Context, notificationRepository: NotificationRepository) :
+    ViewModel() {
 
     private val packageManager = application.packageManager
 
-    val notificationsFlow: Flow<List<NotificationEntity>> = repository.getAllNotificationsFlow()
+    val notificationsFlow: Flow<List<NotificationEntity>> = notificationRepository.getAllNotificationsFlow()
 
     val appInfoFromFlow: Flow<List<AppInfo>> =
         notificationsFlow.map { notifications ->

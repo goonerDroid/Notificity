@@ -1,4 +1,4 @@
-package com.darshan.notificity
+package com.darshan.notificity.data.model
 
 import androidx.room.Entity
 

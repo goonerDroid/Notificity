@@ -1,4 +1,4 @@
-package com.darshan.notificity
+package com.darshan.notificity.util
 
 import java.time.Instant
 import java.time.ZoneId

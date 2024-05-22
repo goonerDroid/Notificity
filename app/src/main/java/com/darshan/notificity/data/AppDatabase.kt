@@ -1,4 +1,4 @@
-package com.darshan.notificity
+package com.darshan.notificity.data
 
 import android.content.Context
 import androidx.room.Database
@@ -6,6 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.darshan.notificity.util.Constants
+import com.darshan.notificity.data.model.NotificationDao
+import com.darshan.notificity.data.model.NotificationEntity
 
 @Database(entities = [NotificationEntity::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
@@ -25,7 +28,8 @@ abstract class AppDatabase : RoomDatabase() {
                         Room.databaseBuilder(
                                 context.applicationContext,
                                 AppDatabase::class.java,
-                                Constants.dbName)
+                            Constants.dbName
+                        )
                             .fallbackToDestructiveMigration()
                             .build()
 

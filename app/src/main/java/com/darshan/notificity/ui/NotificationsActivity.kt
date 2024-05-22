@@ -1,4 +1,4 @@
-package com.darshan.notificity
+package com.darshan.notificity.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -34,23 +34,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.darshan.notificity.util.Util
+import com.darshan.notificity.data.model.NotificationEntity
 import com.darshan.notificity.ui.theme.NotificityTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NotificationsActivity : ComponentActivity() {
-    private val repository: NotificationRepository by lazy { NotificationRepository(AppDatabase.getInstance(application).notificationDao()) }
-    private val viewModel: MainViewModel by viewModels {
-        NotificationViewModelFactory(application, repository)
-    }
+
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val appName:String = intent.getStringExtra("appName").toString()
         this.actionBar?.hide()
-        setContent {
-            NotificityTheme {
-                NotificationSearchScreen(viewModel = viewModel, appName)
-            }
-        }
+        setContent { NotificityTheme { NotificationSearchScreen(viewModel = mainViewModel, appName) } }
     }
 }
 

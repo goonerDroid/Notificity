@@ -47,6 +47,11 @@ android {
     }
 }
 
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
 
     implementation("androidx.core:core-ktx:1.13.1")
@@ -83,7 +88,7 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics")
 
     // For hilt Implementation
-    val hiltVersion = "2.51.1"
+    val hiltVersion = "2.50"
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
 

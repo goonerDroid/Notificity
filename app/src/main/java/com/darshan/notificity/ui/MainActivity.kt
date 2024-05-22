@@ -1,4 +1,4 @@
-package com.darshan.notificity
+package com.darshan.notificity.ui
 
 import android.content.Context
 import android.content.Intent
@@ -47,19 +47,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.darshan.notificity.data.model.AppInfo
 import com.darshan.notificity.ui.theme.NotificityTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val repository: NotificationRepository by lazy {
-        NotificationRepository(AppDatabase.getInstance(application).notificationDao())
-    }
-
-    private val mainViewModel: MainViewModel by
-    viewModels<MainViewModel> {
-        NotificationViewModelFactory(this.application, repository = repository)
-    }
-
+    private val mainViewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent { NotificityTheme { NotificityApp(mainViewModel) } }

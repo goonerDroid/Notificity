@@ -1,4 +1,4 @@
-package com.darshan.notificity
+package com.darshan.notificity.util
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
